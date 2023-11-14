@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   actions_philo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 15:13:07 by tpotilli         ###   ########.fr       */
+/*   Created: 2023/11/14 14:56:08 by tpotilli          #+#    #+#             */
+/*   Updated: 2023/11/14 14:58:24 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	main(int argc, char *argv[])
+void	philo_eat(int time, int id)
 {
-	t_philo ptr;
-
-	if (parsing_manager(argc, argv) == -1)
-		return (printf("les test sont pas bon\n"), 0);
-	printf("les tests sont bon\n");
-	philo_test(argv, &ptr);
+	printf("%d %d is eating\n", time, id);
 }
 
-void	philo_test(char *argv[], t_philo *ptr)
+void	philo_fork(int time, int id)
 {
-	init_struct(argv, ptr);
+	printf("%d %d has taken a fork\n", time, id);
+}
+
+void	philo_sleep(int time, int id)
+{
+	printf("%d %d is sleeping\n", time, id);
+}
+
+void	philo_think(int time, int id)
+{
+	printf("%d %d is thinking\n", time, id);
+}
+
+void	philo_died(int time, int id)
+{
+	printf("%d %d died\n", time, id);
 }

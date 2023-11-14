@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 15:13:07 by tpotilli         ###   ########.fr       */
+/*   Created: 2023/11/14 15:14:30 by tpotilli          #+#    #+#             */
+/*   Updated: 2023/11/14 15:15:35 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	main(int argc, char *argv[])
+int	ft_atoi(const char *nptr)
 {
-	t_philo ptr;
+	int	i;
+	int	result;
+	int	sign;
 
-	if (parsing_manager(argc, argv) == -1)
-		return (printf("les test sont pas bon\n"), 0);
-	printf("les tests sont bon\n");
-	philo_test(argv, &ptr);
-}
-
-void	philo_test(char *argv[], t_philo *ptr)
-{
-	init_struct(argv, ptr);
+	i = 0;
+	result = 0;
+	sign = 1;
+	if (!(nptr))
+		return (0);
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (result * sign);
 }

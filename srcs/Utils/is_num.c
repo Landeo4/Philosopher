@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_num.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 15:13:07 by tpotilli         ###   ########.fr       */
+/*   Created: 2023/11/14 14:42:47 by tpotilli          #+#    #+#             */
+/*   Updated: 2023/11/14 14:49:01 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	main(int argc, char *argv[])
+int	is_num_only(char *argv[])
 {
-	t_philo ptr;
+	int	i;
+	int	j;
 
-	if (parsing_manager(argc, argv) == -1)
-		return (printf("les test sont pas bon\n"), 0);
-	printf("les tests sont bon\n");
-	philo_test(argv, &ptr);
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (ft_isdigit(argv[i][j]) == 0)
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
-void	philo_test(char *argv[], t_philo *ptr)
+int	ft_isdigit(int c)
 {
-	init_struct(argv, ptr);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

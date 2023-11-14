@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/14 13:40:41 by tpotilli         ###   ########.fr        #
+#    Updated: 2023/11/14 15:15:46 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@ OBJS_PATH	= objs/
 
 SRCS	=	srcs/main.c\
 			srcs/Parsing/parsing_manager.c\
-			srcs/Utils/verif_overflow.c\
+			srcs/Utils/verif_numbers.c\
+			srcs/Utils/ft_strlen.c\
+			srcs/Utils/is_num.c\
+			srcs/Utils/init_struct.c\
+			srcs/Utils/ft_atoi.c\
 
 OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 

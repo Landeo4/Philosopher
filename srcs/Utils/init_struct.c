@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 15:13:07 by tpotilli         ###   ########.fr       */
+/*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
+/*   Updated: 2023/11/14 15:16:17 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	main(int argc, char *argv[])
+void	init_struct(char *argv[], t_philo *ptr)
 {
-	t_philo ptr;
-
-	if (parsing_manager(argc, argv) == -1)
-		return (printf("les test sont pas bon\n"), 0);
-	printf("les tests sont bon\n");
-	philo_test(argv, &ptr);
-}
-
-void	philo_test(char *argv[], t_philo *ptr)
-{
-	init_struct(argv, ptr);
+	ptr->nb_fork = ft_atoi(argv[1]);
+	ptr->nb_philo = ft_atoi(argv[1]);
+	ptr->die_time = ft_atoi(argv[2]);
+	ptr->eat_time = ft_atoi(argv[3]);
+	ptr->sleep_time = ft_atoi(argv[4]);
+	if (argv[5])
+		ptr->nb_eat = ft_atoi(argv[5]);
 }

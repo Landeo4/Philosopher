@@ -6,11 +6,11 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 13:57:30 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:36:33 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "Philosopher.h"
 
 int	ft_strlen(char *str)
 {
