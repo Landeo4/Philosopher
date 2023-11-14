@@ -6,34 +6,39 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/14 12:19:39 by tpotilli         ###   ########.fr        #
+#    Updated: 2023/11/14 13:40:41 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME	=	Philo
 
-SRCS =	srcs/main.c\
-		srcs/parsing/parsing_manager.c\
+OBJS_PATH	= objs/
 
-OBJS = $(SRCS:.c=.o)
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
-INC_PATH = ./include
+SRCS	=	srcs/main.c\
+			srcs/Parsing/parsing_manager.c\
+			srcs/Utils/verif_overflow.c\
 
-%.o: %.c
-	$(CC) $(CFLAGS) -I$(INC_PATH) -Imlx_linux -c $< -o $@
+OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+CC		=	gcc
 
-all: $(NAME)
+CFLAGS	=	-Wall -Werror -Wextra -g3 -Iincludes
+
+all : ${NAME}
+
+${NAME}:	${OBJS}
+			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
 clean:
-	rm -f $(OBJS)
+			rm -rf ${OBJS}
 
-fclean: clean
-	rm -f $(NAME)
+fclean:		clean
+			rm -rf ${NAME}
 
-re: fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
+.PHONY:	all clean fclean re
+
+${OBJS_PATH}%.o: %.c
+		@mkdir -p $(@D)
+		${CC} ${CFLAGS} -c $< -o $@

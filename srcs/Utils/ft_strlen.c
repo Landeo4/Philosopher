@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/14 13:17:27 by tpotilli         ###   ########.fr       */
+/*   Created: 2023/11/14 13:56:42 by tpotilli          #+#    #+#             */
+/*   Updated: 2023/11/14 13:57:30 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Philosopher.h"
+#include "philosopher.h"
 
-int	main(int argc, char *argv[])
+int	ft_strlen(char *str)
 {
-	if (parsing_manager(argc, argv) == -1)
-		return (printf("les test sont pas bon\n"), 0);
-	printf("les tests sont bon\n");
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
