@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/15 11:06:47 by tpotilli         ###   ########.fr        #
+#    Updated: 2023/11/15 15:19:44 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ SRCS	=	srcs/main.c\
 			srcs/Utils/verif_numbers.c\
 			srcs/Utils/ft_strlen.c\
 			srcs/Utils/is_num.c\
-			srcs/Utils/init_struct.c\
+			srcs/list/init_struct.c\
 			srcs/Utils/ft_atoi.c\
 			srcs/Utils/ft_bzero.c\
 			srcs/Utils/ft_meme_set.c\
 			srcs/Utils/ft_calloc.c\
-			srcs/Utils/ft_create_cell.c\
-			srcs/Utils/ft_free_list.c\
-			srcs/Utils/ft_add_at.c\
+			srcs/list/ft_create_cell.c\
+			srcs/list/ft_free_list.c\
+			srcs/list/ft_add_at.c\
 
 OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 

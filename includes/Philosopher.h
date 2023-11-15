@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/15 11:16:25 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:53:55 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 typedef struct s_data
 {
-	int	nb_fork;
+	pthread_mutex_t	*fork;
 	int	nb_philo;
 	int	eat_time;
 	int	sleep_time;
@@ -39,7 +39,6 @@ typedef struct s_data
 typedef struct s_philo
 {
 	struct s_philo	*next;
-
 }		t_philo;
 
 typedef struct s_struct
@@ -89,5 +88,9 @@ void	*ft_calloc(size_t nmemb, size_t size);
 t_philo	*ft_createcell_philo();
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
+t_philo	*ft_add_at(t_philo *L, int pos);
+void	fill_struct(t_data *dat, t_struct *ptr1);
+void	routine(char *argv[], t_struct *ptr, t_data *data);
+t_data	*create_fork(t_data *data);
 
 #endif
