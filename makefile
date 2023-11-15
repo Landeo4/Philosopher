@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/14 15:15:46 by tpotilli         ###   ########.fr        #
+#    Updated: 2023/11/15 11:06:47 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,18 @@ SRCS	=	srcs/main.c\
 			srcs/Utils/is_num.c\
 			srcs/Utils/init_struct.c\
 			srcs/Utils/ft_atoi.c\
+			srcs/Utils/ft_bzero.c\
+			srcs/Utils/ft_meme_set.c\
+			srcs/Utils/ft_calloc.c\
+			srcs/Utils/ft_create_cell.c\
+			srcs/Utils/ft_free_list.c\
+			srcs/Utils/ft_add_at.c\
 
 OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Werror -Wextra -g3 -Iincludes
+CFLAGS	=	-Wall -Werror -Wextra -g3 -Iincludes -pthread
 
 all : ${NAME}
 
