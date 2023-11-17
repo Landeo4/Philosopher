@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/15 14:33:01 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:50:07 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,32 @@
 int	main(int argc, char *argv[])
 {
 	t_data		ptr;
-	t_struct	philo;
+	t_philo	philo;
 
 	if (parsing_manager(argc, argv) == -1)
 		return (printf("les test sont pas bon\n"), 0);
 	printf("les tests sont bon\n");
 	init_data_struct(argv, &ptr);
-	init_philo_struct(&philo);
+	init_philo_struct(&philo, &ptr);
 	fill_struct(&ptr, &philo);
+	pthread_create(&philo.philo, NULL, &fake_routine, &ptr);
 	// routine(argv, &philo, &ptr);
+}
+
+void	*fake_routine(void *ptr)
+{
+	t_data	*data;
+	t_philo	*philo;
+
+	philo = (t_philo*)ptr;
+	data = philo->data_struct;
+	(void)data;
+	while (philo->philo)
+	{
+		printf("salut je %d\n", philo->philo->id);
+		philo = philo->next;
+	}
+	return (NULL);
 }
 
 // void	routine(char *argv[], t_struct *ptr, t_data *data)
