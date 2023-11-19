@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 11:43:56 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 12:58:34 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ void	philo_sleep(int time, int id);
 void	philo_think(int time, int id);
 void	philo_died(int time, int id);
 void	init_data_struct(char *argv[], t_data *ptr);
-t_philo *init_philo_struct(t_philo *ptr, t_data *data);
+t_philo *init_philo_struct(t_data *data);
 int		ft_atoi(const char *nptr);
 void	ft_free_philo(t_philo *ptr);
 void	*ft_calloc(size_t nmemb, size_t size);
-t_philo	*ft_createcell_philo();
+t_philo	*ft_createcell_philo(int num);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
-t_philo	*ft_add_at(t_philo *L, int pos);
+t_philo	*ft_add_at(t_philo *L, int nb, int pos);
 void	fill_struct(t_data *dat, t_philo *ptr1);
 void	create_fork(t_data *data);
 

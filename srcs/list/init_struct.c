@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 12:16:21 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:03:10 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,44 @@ void	init_data_struct(char *argv[], t_data *ptr)
 	create_fork(ptr);
 }
 
-t_philo *init_philo_struct(t_philo *ptr, t_data *data)
+t_philo *init_philo_struct(t_data *data)
 {
+	t_philo *ptr;
+	t_philo *current;
+	t_philo *new_philo;
 	int		i;
 
 	i = 0;
+	ptr = NULL;
 	printf("debut d'initialisation\n");
 	while (i < data->nb_philo)
 	{
-		ptr->philo = malloc(sizeof(pthread_t) * 1);
-		if (!ptr->philo)
-			return (NULL);
-		ptr = ptr->next;
+		new_philo = (t_philo *)malloc(sizeof(t_philo));
+		if (!new_philo)
+			return NULL;
+		new_philo->id = i;
+		new_philo->has_eaten = 0;
+		new_philo->next = NULL;
+		new_philo->data_struct = data;
+		new_philo->r_fork = &(data->fork[i]);
+		new_philo->l_fork = &(data->fork[(i - 1)]);
+		// if (!ptr)
+		// {
+		//     ptr = new_philo;
+		//     current = ptr;
+		// }
+		// else
+		// {
+		//     current->next = new_philo;
+		//     current = new_philo;
+		// }
 		i++;
 	}
-	ptr->next = NULL;
 	data->ph_struct = ptr;
 	printf("fin d'initialisation\n");
-	return (ptr);
+	return ptr;
 }
+
 
 void	philo_fill(t_philo *ptr, t_data *data)
 {
@@ -64,21 +83,21 @@ void	philo_fill(t_philo *ptr, t_data *data)
 	}
 }
 
-void	fill_struct(t_data *dat, t_philo *ptr1)
-{
-	t_data		*data;
-	t_philo		*ptr;
-	int			i;
+// void	fill_struct(t_data *dat, t_philo *ptr1)
+// {
+// 	t_data		*data;
+// 	t_philo		*ptr;
+// 	int			i;
 
-	i = 0;
-	data = dat;
-	ptr = ptr1;
-	while (i < data->nb_philo)
-	{
-		ft_add_at(ptr, 1);
-		i++;
-	}
-}
+// 	i = 0;
+// 	data = dat;
+// 	ptr = ptr1;
+// 	while (i < data->nb_philo)
+// 	{
+// 		ft_add_at(ptr,  , 1);
+// 		i++;
+// 	}
+// }
 
 void	create_fork(t_data *data)
 {

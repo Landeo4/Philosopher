@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 12:16:45 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 12:59:04 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char *argv[])
 	if (parsing_manager(argc, argv) == -1)
 		return (printf("les test sont pas bon\n"), 0);
 	init_data_struct(argv, &ptr);
-	init_philo_struct(&philo, &ptr);
-	fill_struct(&ptr, &philo);
+	init_philo_struct(&ptr);
+	// fill_struct(&ptr, &philo);
 	create_philo(&ptr, &philo);
 	while (i < ptr.nb_philo)
 	{
