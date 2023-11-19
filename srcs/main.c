@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/18 16:12:30 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:13:22 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 	if (parsing_manager(argc, argv) == -1)
 		return (printf("les test sont pas bon\n"), 0);
 	init_data_struct(argv, &ptr);
-	init_philo_struct(&philo, &ptr);
+	// init_philo_struct(&philo, &ptr);
 	fill_struct(&ptr, &philo);
 	create_philo(&ptr, &philo);
 	while (i < ptr.nb_philo)
@@ -38,7 +38,8 @@ void	create_philo(t_data *ptr, t_philo *philo)
 {
 	while (philo)
 	{
-		pthread_create(philo->philo, NULL, &fake_routine, ptr);
+		printf("je rentre dans la boucle\n");
+		pthread_create(&(philo->philo), NULL, &fake_routine, ptr);
 		philo = philo->next;
 	}
 	
@@ -51,11 +52,14 @@ void	*fake_routine(void *ptr)
 
 	philo = (t_philo*)ptr;
 	data = philo->data_struct;
+	(void)data;
+	pthread_mutex_lock(&(data->fork[1]));
 	printf("je rentre bien dans fake routine\n");
 	if (pthread_mutex_lock(&(data->fork[1])) == 0)
 		printf("un seul pourra ecrire et c'est %d\n", philo->id);
 	else
 		printf("ca a rater %d\n", philo->id);
+	pthread_mutex_unlock(&(data->fork[1]));
 	return (NULL);
 }
 

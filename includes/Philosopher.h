@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/18 15:36:28 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:17:48 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ typedef struct s_philo
 {
 	int				id;
 	int				has_eaten;
-	pthread_t		*philo;
+	pthread_t		philo;
 	struct s_philo	*next;
 	struct s_data	*data_struct;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
 }		t_philo;
 
 typedef struct s_data
@@ -56,6 +58,7 @@ int		main(int argc, char *argv[]);
 void	philo_main(char *argv[], t_data *ptr);
 void	*fake_routine(void *ptr);
 void	create_philo(t_data *ptr, t_philo *philo);
+void	*eat(t_struct *ptr, t_data *data);
 
 /*
 ================================

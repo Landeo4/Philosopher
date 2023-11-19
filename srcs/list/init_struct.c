@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/18 16:13:50 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:07:20 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,25 @@ void	init_data_struct(char *argv[], t_data *ptr)
 	create_fork(ptr);
 }
 
-t_philo *init_philo_struct(t_philo *ptr, t_data *data)
-{
-	ptr->philo = malloc(sizeof(pthread_t) * data->nb_philo);
-	if (!ptr->philo)
-		return (NULL);
-	ptr->next = NULL;
-	data->ph_struct = ptr;
-	return (ptr);
-}
+// t_philo *init_philo_struct(t_philo *ptr, t_data *data)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	printf("debut d'initialisation\n");
+// 	while (i < data->nb_philo)
+// 	{
+// 		ptr->philo = malloc(sizeof(pthread_t) * 1);
+// 		if (!ptr->philo)
+// 			return (NULL);
+// 		ptr = ptr->next;
+// 		i++;
+// 	}
+// 	ptr->next = NULL;
+// 	data->ph_struct = ptr;
+// 	printf("fin d'initialisation\n");
+// 	return (ptr);
+// }
 
 void	philo_fill(t_philo *ptr, t_data *data)
 {
@@ -40,6 +50,8 @@ void	philo_fill(t_philo *ptr, t_data *data)
 	
 	i = 0;
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if (!data->fork)
+		return ;
 	while (i < data->nb_philo)
 	{
 		pthread_mutex_init(&data->fork[i], NULL);
