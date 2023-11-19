@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:54:28 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 11:16:00 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:43:42 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ une fois que le delai est ecouler, il unlock les fourchettes et passe a
 une autre activite
 */
 
-void	*eat(t_struct *ptr, t_data *data)
+void	*eat(t_philo *ptr, t_data *data)
 {
 	
 }

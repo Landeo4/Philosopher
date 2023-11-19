@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 11:07:20 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 12:16:21 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ void	init_data_struct(char *argv[], t_data *ptr)
 	create_fork(ptr);
 }
 
-// t_philo *init_philo_struct(t_philo *ptr, t_data *data)
-// {
-// 	int		i;
+t_philo *init_philo_struct(t_philo *ptr, t_data *data)
+{
+	int		i;
 
-// 	i = 0;
-// 	printf("debut d'initialisation\n");
-// 	while (i < data->nb_philo)
-// 	{
-// 		ptr->philo = malloc(sizeof(pthread_t) * 1);
-// 		if (!ptr->philo)
-// 			return (NULL);
-// 		ptr = ptr->next;
-// 		i++;
-// 	}
-// 	ptr->next = NULL;
-// 	data->ph_struct = ptr;
-// 	printf("fin d'initialisation\n");
-// 	return (ptr);
-// }
+	i = 0;
+	printf("debut d'initialisation\n");
+	while (i < data->nb_philo)
+	{
+		ptr->philo = malloc(sizeof(pthread_t) * 1);
+		if (!ptr->philo)
+			return (NULL);
+		ptr = ptr->next;
+		i++;
+	}
+	ptr->next = NULL;
+	data->ph_struct = ptr;
+	printf("fin d'initialisation\n");
+	return (ptr);
+}
 
 void	philo_fill(t_philo *ptr, t_data *data)
 {

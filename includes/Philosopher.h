@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 11:17:48 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:43:56 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		main(int argc, char *argv[]);
 void	philo_main(char *argv[], t_data *ptr);
 void	*fake_routine(void *ptr);
 void	create_philo(t_data *ptr, t_philo *philo);
-void	*eat(t_struct *ptr, t_data *data);
+void	*eat(t_philo *ptr, t_data *data);
 
 /*
 ================================
@@ -95,7 +95,6 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 t_philo	*ft_add_at(t_philo *L, int pos);
 void	fill_struct(t_data *dat, t_philo *ptr1);
-void	routine(char *argv[], t_philo *ptr, t_data *data);
 void	create_fork(t_data *data);
 
 #endif
