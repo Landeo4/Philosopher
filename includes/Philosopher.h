@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 12:58:34 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:01:22 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <stdint.h>
+# include <time.h>
+# include <sys/types.h>
 # include <stdint.h>
 
 /*
@@ -39,11 +42,13 @@ typedef struct s_philo
 typedef struct s_data
 {
 	pthread_mutex_t	*fork;
-	int	nb_philo;
-	int	eat_time;
-	int	sleep_time;
-	int	die_time;
-	int	nb_eat;
+	int				nb_philo;
+	u_int64_t		eat_time;
+	u_int64_t		sleep_time;
+	u_int64_t		die_time;
+	u_int64_t		think_time;
+	u_int64_t		real_time;
+	int				nb_eat;
 	pthread_mutex_t	*mutex;
 	t_philo			*ph_struct;
 }		t_data;
@@ -58,7 +63,9 @@ int		main(int argc, char *argv[]);
 void	philo_main(char *argv[], t_data *ptr);
 void	*fake_routine(void *ptr);
 void	create_philo(t_data *ptr, t_philo *philo);
-void	*eat(t_philo *ptr, t_data *data);
+void	philo_eat(t_philo *ptr, t_data *data);
+void	philo_sleep(t_data *data);
+void	philo_think(t_data *data);
 
 /*
 ================================
@@ -80,11 +87,11 @@ int		verif_overflow(char *argv[]);
 int		verif_overflow_max(char *argv[], char *max);
 int		ft_isdigit(int c);
 int		is_num_only(char *argv[]);
-void	philo_eat(int time, int id);
-void	philo_fork(int time, int id);
-void	philo_sleep(int time, int id);
-void	philo_think(int time, int id);
-void	philo_died(int time, int id);
+void	philo_eat_show(u_int64_t time, int id);
+void	philo_fork_show(u_int64_t time, int id);
+void	philo_sleep_show(u_int64_t time, int id);
+void	philo_think_show(u_int64_t time, int id);
+void	philo_died_show(u_int64_t time, int id);
 void	init_data_struct(char *argv[], t_data *ptr);
 t_philo *init_philo_struct(t_data *data);
 int		ft_atoi(const char *nptr);

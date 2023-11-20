@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/18 13:44:15 by tpotilli         ###   ########.fr        #
+#    Updated: 2023/11/20 09:58:13 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME	=	Philo
 OBJS_PATH	= objs/
 
 SRCS	=	srcs/main.c\
+			srcs/Philo/actions_philo.c\
+			srcs/Philo/routine.c\
 			srcs/Parsing/parsing_manager.c\
 			srcs/Utils/verif_numbers.c\
 			srcs/Utils/ft_strlen.c\

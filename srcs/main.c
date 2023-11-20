@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 12:59:04 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 09:53:12 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ int	main(int argc, char *argv[])
 void	create_philo(t_data *ptr, t_philo *philo)
 {
 	t_philo	*tmp;
-	int i = 0;
+	int i;
 
+	i = 0;
 	tmp = philo;
 	while (tmp)
 	{
-		printf("tmp %d et i %d\n", tmp->id, i);
+		printf("tmp %d\n", tmp->id);
+		printf("i %d\n", i);
 		tmp = tmp->next;
 		i++;
 	}
@@ -64,20 +66,35 @@ void	*fake_routine(void *ptr)
 	data = philo->data_struct;
 	(void)data;
 	printf("je rentre bien dans fake routine\n");
-	pthread_mutex_lock(&(data->fork[1]));
-	if (pthread_mutex_lock(&(data->fork[1])) == 0)
-	{
-		printf("un seul pourra ecrire et c'est %d\n", philo->id);
-		pthread_mutex_unlock(&(data->fork[1]));
-	}
-	else
-	{
-		printf("ca a rater %d\n", philo->id);
-		pthread_mutex_unlock(&(data->fork[1]));
-	}
-	// pthread_mutex_lock(&(data->fork[1]));
+	philo_eat(philo, data);
+	philo_sleep(data);
+	philo_think(data);
 	return (NULL);
 }
+
+// void	*fake_routine(void *ptr)
+// {
+// 	t_data		*data;
+// 	t_philo		*philo;
+
+// 	philo = (t_philo*)ptr;
+// 	data = philo->data_struct;
+// 	(void)data;
+// 	printf("je rentre bien dans fake routine\n");
+// 	pthread_mutex_lock(&(data->fork[1]));
+// 	if (pthread_mutex_lock(&(data->fork[1])) == 0)
+// 	{
+// 		printf("un seul pourra ecrire et c'est %d\n", philo->id);
+// 		pthread_mutex_unlock(&(data->fork[1]));
+// 	}
+// 	else
+// 	{
+// 		printf("ca a rater %d\n", philo->id);
+// 		pthread_mutex_unlock(&(data->fork[1]));
+// 	}
+// 	// pthread_mutex_lock(&(data->fork[1]));
+// 	return (NULL);
+// }
 
 // void	*fake_routine(void *ptr)
 // {

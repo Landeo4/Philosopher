@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/19 13:03:10 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 09:19:43 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ t_philo *init_philo_struct(t_data *data)
 		new_philo->data_struct = data;
 		new_philo->r_fork = &(data->fork[i]);
 		new_philo->l_fork = &(data->fork[(i - 1)]);
-		// if (!ptr)
-		// {
-		//     ptr = new_philo;
-		//     current = ptr;
-		// }
-		// else
-		// {
-		//     current->next = new_philo;
-		//     current = new_philo;
-		// }
+		if (!ptr)
+		{
+			ptr = new_philo;
+			current = ptr;
+		}
+		else
+		{
+			current->next = new_philo;
+			current = new_philo;
+		}
 		i++;
 	}
 	data->ph_struct = ptr;
