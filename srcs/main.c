@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 10:37:55 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:11:25 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ int	main(int argc, char *argv[])
 	i = 0;
 	if (parsing_manager(argc, argv) == -1)
 		return (printf("les test sont pas bon\n"), 0);
-	init_data_struct(argv, &ptr);
-	init_philo_struct(&ptr);
-	// fill_struct(&ptr, &philo);
-	create_philo(&ptr, &philo);
+	init_all_struct(&ptr, &philo, argv);
+		// return (-1);
+	printf("je passe par la\n");
+	while (i < ptr.nb_philo)
+	{
+		pthread_create(&(philo.philo), NULL, &fake_routine, &philo);
+		usleep(1);
+		i++;
+	}
 	while (i < ptr.nb_philo)
 	{
 		pthread_mutex_destroy(&ptr.fork[i]);
@@ -34,41 +39,23 @@ int	main(int argc, char *argv[])
 	// routine(argv, &philo, &ptr);
 }
 
-void	create_philo(t_data *ptr, t_philo *philo)
-{
-	t_philo	*tmp;
-	int i;
-
-	i = 0;
-	tmp = philo;
-	while (tmp)
-	{
-		printf("tmp %d\n", tmp->id);
-		printf("i %d\n", i);
-		tmp = tmp->next;
-		i++;
-	}
-	// (void)ptr;
-	// while (philo)
-	// {
-	// 	// printf("je rentre dans la boucle\n");
-	// 	pthread_create(&(philo->philo), NULL, &fake_routine, philo);
-	// 	philo = philo->next;
-	// }
-}
-
 void	*fake_routine(void *ptr)
 {
 	t_data		*data;
 	t_philo		*philo;
+	int			tmp;
 
 	philo = (t_philo*)ptr;
 	data = philo->data_struct;
-	(void)data;
+	tmp = 0;
 	printf("je rentre bien dans fake routine\n");
-	philo_eat(philo, data);
-	philo_sleep(data);
-	philo_think(data);
+	printf("sa");
+	while (tmp == 0)
+	{
+		philo_eat(philo, data);
+		philo_sleep(data);
+		philo_think(data);
+	}
 	return (NULL);
 }
 
@@ -76,7 +63,6 @@ void	*fake_routine(void *ptr)
 // {
 // 	t_data		*data;
 // 	t_philo		*philo;
-
 // 	philo = (t_philo*)ptr;
 // 	data = philo->data_struct;
 // 	(void)data;
@@ -94,6 +80,30 @@ void	*fake_routine(void *ptr)
 // 	}
 // 	// pthread_mutex_lock(&(data->fork[1]));
 // 	return (NULL);
+// }
+
+// void	create_philo(t_data *ptr, t_philo *philo)
+// {
+// 	t_philo	*tmp;
+// 	int i;
+
+// 	i = 0;
+// 	tmp = philo;
+// 	printf("has eatne %d\n", tmp->has_eaten);
+// 	while (tmp)
+// 	{
+// 		printf("tmp %d\n", tmp->id);
+// 		printf("i %d\n", i);
+// 		tmp = tmp->next;
+// 		i++;
+// 	}
+// 	(void)ptr;
+	// while (philo)
+	// {
+	// 	// printf("je rentre dans la boucle\n");
+	// 	pthread_create(&(philo->philo), NULL, &fake_routine, philo);
+	// 	philo = philo->next;
+	// }
 // }
 
 // void	*fake_routine(void *ptr)

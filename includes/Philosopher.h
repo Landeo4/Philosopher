@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 10:01:22 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:44:45 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_data
 int		main(int argc, char *argv[]);
 void	philo_main(char *argv[], t_data *ptr);
 void	*fake_routine(void *ptr);
-void	create_philo(t_data *ptr, t_philo *philo);
+int		create_philo(t_data *ptr, t_philo *philo);
 void	philo_eat(t_philo *ptr, t_data *data);
 void	philo_sleep(t_data *data);
 void	philo_think(t_data *data);
@@ -92,8 +92,8 @@ void	philo_fork_show(u_int64_t time, int id);
 void	philo_sleep_show(u_int64_t time, int id);
 void	philo_think_show(u_int64_t time, int id);
 void	philo_died_show(u_int64_t time, int id);
-void	init_data_struct(char *argv[], t_data *ptr);
-t_philo *init_philo_struct(t_data *data);
+t_data	*init_data_struct(char *argv[], t_data *ptr);
+t_philo	*init_philo_struct(t_data *data);
 int		ft_atoi(const char *nptr);
 void	ft_free_philo(t_philo *ptr);
 void	*ft_calloc(size_t nmemb, size_t size);
@@ -101,7 +101,8 @@ t_philo	*ft_createcell_philo(int num);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 t_philo	*ft_add_at(t_philo *L, int nb, int pos);
-void	fill_struct(t_data *dat, t_philo *ptr1);
-void	create_fork(t_data *data);
+int		fill_struct(t_data *dat, t_philo *ptr1);
+t_data	*create_fork(t_data *data);
+int		init_all_struct(t_data *ptr, t_philo *philo, char *argv[]);
 
 #endif

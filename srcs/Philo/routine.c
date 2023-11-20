@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:54:28 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 10:14:33 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:38:36 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ une autre activite
 */
 
 void	philo_eat(t_philo *ptr, t_data *data)
-{	
+{
+	printf("%d\n", data->nb_philo);
 	if (&(data->fork[ptr->id]) == 0
 		&& &(data->fork[(ptr->id - 1)]) == 0)
 	{
