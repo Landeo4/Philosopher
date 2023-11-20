@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 13:57:17 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:19:42 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_philo	*init_philo_struct(t_data *data)
 		i++;
 	}
 	data->ph_struct = ptr;
+	printf("dklas;d;l %d\n", new_philo->id);
 	printf("fin d'initialisation\n");
-	return (ptr);
+	return (new_philo);
 }
-
 
 int	philo_fill(t_philo *ptr, t_data *data)
 {
