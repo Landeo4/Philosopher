@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 09:53:12 by tpotilli         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:37:55 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	create_philo(t_data *ptr, t_philo *philo)
 		tmp = tmp->next;
 		i++;
 	}
-	(void)ptr;
+	// (void)ptr;
 	// while (philo)
 	// {
 	// 	// printf("je rentre dans la boucle\n");
