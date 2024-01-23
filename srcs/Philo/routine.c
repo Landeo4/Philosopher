@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:54:28 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 13:38:36 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:56:27 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,4 @@ void	philo_eat(t_philo *ptr, t_data *data)
 		pthread_mutex_unlock(&(data->fork[ptr->id - 1]));
 		pthread_mutex_unlock(&(data->fork[ptr->id]));
 	}
-}
-
-void	philo_sleep(t_data *data)
-{
-	philo_sleep_show(data->real_time, data->ph_struct->id);
-	usleep(data->sleep_time);
-}
-
-void	philo_think(t_data *data)
-{
-	philo_think_show(data->real_time, data->ph_struct->id);
-	usleep(data->think_time);
 }

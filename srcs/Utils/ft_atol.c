@@ -1,53 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif_numbers.c                                    :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:14:04 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/23 18:42:06 by tpotilli         ###   ########.fr       */
+/*   Created: 2024/01/23 18:40:25 by tpotilli          #+#    #+#             */
+/*   Updated: 2024/01/23 18:41:00 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	verif_numbers(char *argv[])
+long	ft_atol(const char *nptr)
 {
-	int	i;
-	int	j;
-	int	len;
+	long	i;
+	long	result;
+	long	sign;
 
-	i = 1;
-	while (argv[i])
+	i = 0;
+	result = 0;
+	sign = 1;
+	if (!(nptr))
+		return (0);
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '-')
 	{
-		len = ft_strlen(argv[i]);
-		if (len > 10)
-			return (printf("big number\n"), -1);
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < 0)
-				return (-1);
-			j++;
-		}
+		sign *= -1;
 		i++;
 	}
-	if (verif_overflow(argv) == -1)
-		return (-1);
-	return (0);
-}
-
-int	verif_overflow(char *argv[])
-{
-	int		i;
-
-	i = 1;
-	while (argv[i])
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		if (ft_atol(argv[i]) > 2147483647)
-			return (-1);
+		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
-	return (0);
+	return (result * sign);
 }

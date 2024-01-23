@@ -6,11 +6,11 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2023/11/20 09:58:13 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/23 18:41:40 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	Philo
+NAME	=	Philosopher
 
 OBJS_PATH	= objs/
 
@@ -23,6 +23,7 @@ SRCS	=	srcs/main.c\
 			srcs/Utils/is_num.c\
 			srcs/list/init_struct.c\
 			srcs/Utils/ft_atoi.c\
+			srcs/Utils/ft_atol.c\
 			srcs/Utils/ft_bzero.c\
 			srcs/Utils/ft_meme_set.c\
 			srcs/Utils/ft_calloc.c\

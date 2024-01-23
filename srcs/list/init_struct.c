@@ -6,21 +6,23 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2023/11/20 14:19:42 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:31:11 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int		init_all_struct(t_data *ptr, t_philo *philo, char *argv[])
+int		init_all_struct(t_data *data, t_philo *philo, char *argv[])
 {
 	(void)philo;
-	ptr = init_data_struct(argv, ptr);
+	data = init_data_struct(argv, data);
 	// if (!ptr)
 	// 	return (-1);
-	philo = init_philo_struct(ptr);
+	philo = init_philo_struct(data);
 	// if (!philo)
 	// 	return (-1);
+	// int i = ft_atoi(argv[1]);
+	// free(data->fork);
 	return (0);
 }
 
@@ -32,7 +34,7 @@ t_data	*init_data_struct(char *argv[], t_data *ptr)
 	ptr->sleep_time = ft_atoi(argv[4]);
 	if (argv[5])
 		ptr->nb_eat = ft_atoi(argv[5]);
-	ptr = create_fork(ptr);
+	ptr = create_fork(ptr, argv);
 	// if (!ptr->nb_philo || !ptr->sleep_time
 	// 	|| !ptr->eat_time || !ptr->die_time)
 	// 	return (NULL);
@@ -47,22 +49,22 @@ t_philo	*init_philo_struct(t_data *data)
 
 	i = 0;
 	ptr = NULL;
+	new_philo = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!new_philo)
+		return (NULL);
 	printf("debut d'initialisation\n");
 	while (i < data->nb_philo)
 	{
-		new_philo = (t_philo *)malloc(sizeof(t_philo));
-		if (!new_philo)
-			return (NULL);
 		new_philo->id = i;
 		new_philo->has_eaten = 0;
 		new_philo->next = NULL;
 		new_philo->data_struct = data;
 		new_philo->r_fork = &(data->fork[i]);
 		new_philo->l_fork = &(data->fork[(i - 1)]);
+		data->ph_struct = ptr;
 		i++;
 	}
-	data->ph_struct = ptr;
-	printf("dklas;d;l %d\n", new_philo->id);
+	printf("philo_id = %d\n", new_philo->id);
 	printf("fin d'initialisation\n");
 	return (new_philo);
 }
@@ -71,7 +73,7 @@ int	philo_fill(t_philo *ptr, t_data *data)
 {
 	int i;
 	(void)ptr;
-	
+
 	i = 0;
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->fork)
@@ -89,12 +91,12 @@ int	philo_fill(t_philo *ptr, t_data *data)
 	return (0);
 }
 
-t_data	*create_fork(t_data *data)
+t_data	*create_fork(t_data *data, char *argv[])
 {
 	int	i;
 
 	i = 0;
-	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	data->fork = malloc(sizeof(pthread_mutex_t) * (ft_atoi(argv[1]) + 1));
 	if (!data->fork)
 	{
 		printf("probleme with your fork\n");
