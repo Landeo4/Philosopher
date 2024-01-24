@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/23 20:31:11 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:25:02 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int		init_all_struct(t_data *data, t_philo *philo, char *argv[])
 	// if (!philo)
 	// 	return (-1);
 	// int i = ft_atoi(argv[1]);
-	// free(data->fork);
 	return (0);
 }
 
@@ -35,6 +34,7 @@ t_data	*init_data_struct(char *argv[], t_data *ptr)
 	if (argv[5])
 		ptr->nb_eat = ft_atoi(argv[5]);
 	ptr = create_fork(ptr, argv);
+	ptr->sav_die_time = ptr->die_time;
 	// if (!ptr->nb_philo || !ptr->sleep_time
 	// 	|| !ptr->eat_time || !ptr->die_time)
 	// 	return (NULL);
