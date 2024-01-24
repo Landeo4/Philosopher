@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/24 15:14:06 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:42:47 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdint.h>
 # include <time.h>
 # include <sys/types.h>
+#include <sys/time.h>
 # include <stdint.h>
 
 /*
@@ -50,8 +51,9 @@ typedef struct s_data
 	u_int64_t		think_time;
 	u_int64_t		real_time;
 	int				nb_eat;
+	int				dead;
 	u_int64_t		sav_die_time;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	mutex;
 	t_philo			*ph_struct;
 }		t_data;
 
@@ -61,10 +63,11 @@ typedef struct s_data
 ================================
 */
 
-int		main(int argc, char *argv[]);
-void	philo_eat(t_philo *ptr, t_data *data);
-int		start_routine(t_data *data, t_philo *philo);
-int		is_philo_dead(t_data *data, t_philo *philo, int actual);
+int			main(int argc, char *argv[]);
+void		philo_eat(t_philo *ptr, t_data *data);
+void		*start_routine(void *data);
+int			is_philo_dead(t_data *data, int actual);
+u_int64_t	ft_get_time(void);
 
 /*
 ================================
@@ -72,11 +75,11 @@ int		is_philo_dead(t_data *data, t_philo *philo, int actual);
 ================================
 */
 
-int		parsing_manager(int argc, char *argv[]);
-int		verif_numbers(char *argv[]);
-int		verif_overflow(char *argv[]);
-int		ft_isdigit(int c);
-int		is_num_only(char *argv[]);
+int			parsing_manager(int argc, char *argv[]);
+int			verif_numbers(char *argv[]);
+int			verif_overflow(char *argv[]);
+int			ft_isdigit(int c);
+int			is_num_only(char *argv[]);
 
 /*
 ================================
@@ -84,25 +87,25 @@ int		is_num_only(char *argv[]);
 ================================
 */
 
-int		ft_strlen(char *str);
-void	philo_eat_show(u_int64_t time, int id);
-void	philo_fork_show(u_int64_t time, int id);
-void	philo_sleep_show(u_int64_t time, int id);
-void	philo_think_show(u_int64_t time, int id);
-void	philo_died_show(u_int64_t time, int id);
-t_data	*init_data_struct(char *argv[], t_data *ptr);
-t_philo	*init_philo_struct(t_data *data);
-int		ft_atoi(const char *nptr);
-void	ft_free_philo(t_philo *ptr);
-void	*ft_calloc(size_t nmemb, size_t size);
-t_philo	*ft_createcell_philo(int num);
-void	ft_bzero(void *s, size_t n);
-void	*ft_memset(void *s, int c, size_t n);
-t_philo	*ft_add_at(t_philo *L, int nb, int pos);
-int		fill_struct(t_data *dat, t_philo *ptr1);
-t_data	*create_fork(t_data *data, char *argv[]);
-int		init_all_struct(t_data *ptr, t_philo *philo, char *argv[]);
-void 	free_struct(t_philo *ptr, t_data *data);
-long	ft_atol(const char *nptr);
+int			ft_strlen(char *str);
+void		philo_eat_show(u_int64_t time, int id);
+void		philo_fork_show(u_int64_t time, int id);
+void		philo_sleep_show(u_int64_t time, int id);
+void		philo_think_show(u_int64_t time, int id);
+void		philo_died_show(u_int64_t time, int id);
+t_data		*init_data_struct(char *argv[], t_data *ptr);
+t_philo		*init_philo_struct(t_data *data);
+int			ft_atoi(const char *nptr);
+void		ft_free_philo(t_philo *ptr);
+void		*ft_calloc(size_t nmemb, size_t size);
+t_philo		*ft_createcell_philo(int num);
+void		ft_bzero(void *s, size_t n);
+void		*ft_memset(void *s, int c, size_t n);
+t_philo		*ft_add_at(t_philo *L, int nb, int pos);
+int			fill_struct(t_data *dat, t_philo *ptr1);
+t_data		*create_fork(t_data *data, char *argv[]);
+int			init_all_struct(t_data *ptr, t_philo *philo, char *argv[]);
+void 		free_struct(t_philo *ptr, t_data *data);
+long		ft_atol(const char *nptr);
 
 #endif

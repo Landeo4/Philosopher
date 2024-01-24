@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:07:42 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/24 14:25:02 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:50:01 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_data	*init_data_struct(char *argv[], t_data *ptr)
 		ptr->nb_eat = ft_atoi(argv[5]);
 	ptr = create_fork(ptr, argv);
 	ptr->sav_die_time = ptr->die_time;
+	ptr->dead = 0;
+	pthread_mutex_init(&ptr->mutex, NULL);
 	// if (!ptr->nb_philo || !ptr->sleep_time
 	// 	|| !ptr->eat_time || !ptr->die_time)
 	// 	return (NULL);
