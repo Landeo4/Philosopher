@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2024/01/25 18:28:58 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/25 20:39:59 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	=	main.c \
 			utils/ft_strcmp.c \
 			parsing/verify_arguments.c \
 			src/initializer.c \
+			src/initializer2.c \
 			src/end_program.c \
 			src/actions.c \
 			src/simulation.c \

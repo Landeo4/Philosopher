@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:56:08 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 19:15:09 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:55:29 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	eat(t_philo *philo)
 	if (philo->id % 2 != 0)
 		take_forks_r_l(philo);
 	else
-		take_forks_l_r(philo); // avant ca race condition car meme fouchettes pour deux philo
+		take_forks_l_r(philo);
 	pthread_mutex_lock(&philo->lock);
 	philo->is_eating = 1;
 	philo->time_to_die = ft_get_time() + philo->data->death_time;
