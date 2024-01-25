@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_time.c                                      :+:      :+:    :+:   */
+/*   initializer2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 15:48:26 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 18:56:51 by tpotilli         ###   ########.fr       */
+/*   Created: 2024/01/25 18:52:43 by tpotilli          #+#    #+#             */
+/*   Updated: 2024/01/25 18:56:56 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-u_int64_t	ft_get_time(void)
+int	thread_collector(t_data *ptr)
 {
-	struct timeval	value;
+	int	i;
 
-	if (gettimeofday(&value, NULL))
-		return (error_and_free("gettimeofday() error", NULL));
-	return ((value.tv_sec * (u_int64_t)1000) + (value.tv_usec / 1000));
+	i = 0;
+	while (++i < ptr->n_philo)
+	{
+		if (pthread_join(ptr->thre_id[i], NULL))
+			return (error_and_free("Thread join error.", ptr));
+		i++;
+	}
+	return (0);
 }

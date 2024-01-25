@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:18:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 15:44:00 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:35:08 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!init_master(ptr, argv))
 		return (0);
-	end_prog_and_free(ptr);
+	free_struct(ptr);
 	return (1);
 }

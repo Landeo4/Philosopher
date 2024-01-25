@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   verify_arguments.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:55:51 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 15:55:58 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:46:56 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	verify_arguments(char **argv, int argc)
 {
-	if (!prevent_overflow(argv, argc))
+	if (!overflow_check(argv, argc))
 		return (0);
 	else if (ft_atol(argv[1]) < 1 || ft_atol(argv[1]) > 200)
 		return (pr_error("Invalid amount of philosophers."));
@@ -24,7 +24,7 @@ int	verify_arguments(char **argv, int argc)
 	return (1);
 }
 
-int	prevent_overflow(char **argv, int argc)
+int	overflow_check(char **argv, int argc)
 {
 	int	i;
 

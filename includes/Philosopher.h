@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 16:30:08 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:14:39 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
-// ! ---------------------------------------------------------------------------
-// ?							STRUCTURES DECLARATION
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 							STRUCTURES DECLARATION
+// ---------------------------------------------------------------------------
 
 struct	s_data;
 
@@ -33,9 +33,9 @@ typedef struct s_philo
 	struct s_data	*data;
 	pthread_t		t1;
 	int				id;
-	int				eat_cont;
+	int				eat_count;
 	int				status;
-	int				eating;
+	int				is_eating;
 	uint64_t		time_to_die;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
@@ -46,23 +46,23 @@ typedef struct s_data
 {
 	t_philo			*philos;
 	int				n_philo;
-	int				n_meals;
-	int				dead;
+	int				n_eat;
+	int				is_dead;
 	int				finished;
 	u_int64_t		death_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
-	u_int64_t		start_time;
+	u_int64_t		beginning;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 	pthread_mutex_t	end;
-	pthread_t		*tid;
+	pthread_t		*thre_id;
 }	t_data;
 
-// ! ---------------------------------------------------------------------------
-// *							-  UTILS -
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+//							-  UTILS -
+// ---------------------------------------------------------------------------
 
 long		ft_atol(const char *str);
 int			ft_strcmp(char *s1, char *s2);
@@ -73,16 +73,16 @@ int			pr_error(char *error);
 size_t		ft_strlen(const char *str);
 u_int64_t	ft_get_time(void);
 
-// ! ---------------------------------------------------------------------------
-// *						- ARGUMENTS VERIFICATION -
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 						- ARGUMENTS VERIFICATION -
+// ---------------------------------------------------------------------------
 
 int			verify_arguments(char **argv, int argc);
-int			prevent_overflow(char **argv, int argc);
+int			overflow_check(char **argv, int argc);
 
-// ! ---------------------------------------------------------------------------
-// *							- INITIALIZERS -
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 							- INITIALIZERS -
+// ---------------------------------------------------------------------------
 
 int			init_master(t_data *ptr, char **argv);
 int			init_pointers(t_data *ptr);
@@ -91,9 +91,9 @@ void		init_philos(t_data *ptr);
 void		init_forks(t_data *ptr);
 int			init_threads(t_data *ptr);
 
-// ! ---------------------------------------------------------------------------
-// *						- PHILOSOPHERS SIMULATION -
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 						- PHILOSOPHERS SIMULATION -
+// ---------------------------------------------------------------------------
 
 int			one_philo_solution(t_data *ptr);
 void		*one_philo_solver(void *philo_ptr);
@@ -107,12 +107,12 @@ void		take_forks_l_r(t_philo *philo);
 void		drop_forks_l_r(t_philo *philo);
 void		drop_forks_r_l(t_philo *philo);
 
-// ! ---------------------------------------------------------------------------
-// *					- FREE FUNCTIONS && ERROR HANDLING -
-// ! ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// 					- FREE FUNCTIONS && ERROR HANDLING -
+// ---------------------------------------------------------------------------
 
-int			error_handler(char *str, t_data *ptr);
-void		end_prog_and_free(t_data *ptr);
+int			error_and_free(char *str, t_data *ptr);
+void		free_struct(t_data *ptr);
 void		free_data(t_data *ptr);
 
 #endif

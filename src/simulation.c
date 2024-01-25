@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:47:12 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 15:47:36 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:17:15 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,30 @@
 
 int	one_philo_solution(t_data *ptr)
 {
-	ptr->start_time = ft_get_time();
-	if (pthread_create(&ptr->tid[0], NULL, &one_philo_solver, &ptr->philos[0]))
-		return (error_handler("Thread error.", ptr));
-	if (pthread_join(ptr->tid[0], NULL))
-		return (error_handler("Detach error.", ptr));
-	end_prog_and_free(ptr);
+	ptr->beginning = ft_get_time();
+	if (pthread_create(&ptr->thre_id[0], NULL, &one_philo_solver, &ptr->philos[0]))
+		return (error_and_free("Thread error.", ptr));
+	if (pthread_join(ptr->thre_id[0], NULL))
+		return (error_and_free("Detach error.", ptr));
+	free_struct(ptr);
 	return (0);
 }
 
 void	*one_philo_solver(void *philo_ptr)
 {
 	t_philo	*philo;
+	int		death_timer;
+	int		actual_time;
 
 	philo = (t_philo *) philo_ptr;
-	philo->time_to_die = philo->data->death_time + ft_get_time();
+	death_timer = philo->data->death_time;
+	actual_time = ft_get_time();
+	philo->time_to_die = death_timer + actual_time;
 	event_log("has taken a fork", philo);
 	ft_usleep(philo->data->death_time);
 	event_log("died", philo);
 	return (NULL);
 }
-/*
-! ---------------------------------------------------------------------------
-*							- MONITOR -
-! ---------------------------------------------------------------------------
-
-? This function works as follows :
-* - Will simply monitor our philosopher and check if they ate
-* the n-amount of time to end the simulation.
-* - If a philo dies, it ends.
-
-
-*/
 
 void	*monitor(void *data_ptr)
 {
@@ -54,52 +46,39 @@ void	*monitor(void *data_ptr)
 
 	philo = (t_philo *) data_ptr;
 	pthread_mutex_lock(&philo->data->lock);
-	ended = philo->data->dead;
+	ended = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->lock);
 	while (!ended)
 	{
 		pthread_mutex_lock(&philo->data->lock);
-		ended = philo->data->dead;
+		ended = philo->data->is_dead;
 		pthread_mutex_unlock(&philo->data->lock);
 		pthread_mutex_lock(&philo->data->lock);
 		if (philo->data->finished >= philo->data->n_philo)
-			philo->data->dead = 1;
+			philo->data->is_dead = 1;
 		pthread_mutex_unlock(&philo->data->lock);
 	}
 	return (NULL);
 }
 
-/*
-! ---------------------------------------------------------------------------
-*							- ROUTINE -
-! ---------------------------------------------------------------------------
-
-? This function works as follows :
-* - This is what our philo will be doing.
-* - Will set the death timer.
-* - Will make the philo eat, sleep and think.
-* - Ends if a philo dies.
-
-*/
-
 void	*routine(void *philo_pointer)
 {
 	t_philo	*philo;
-	int		ended;
+	int		is_alive;
 
 	philo = (t_philo *) philo_pointer;
 	pthread_mutex_lock(&philo->data->lock);
-	ended = philo->data->dead;
+	is_alive = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->lock);
 	philo->time_to_die = philo->data->death_time + ft_get_time();
-	if (pthread_create(&philo->t1, NULL, &supervisor, (void *)philo))
-		return (NULL);
+	if (pthread_create(&philo->t1, NULL, &supervisor, (void *)philo)) // verif avant en cas ou fail puis free
+		return (NULL); // donc vois si la simu n'a pas fail
 	if (pthread_detach(philo->t1))
 		return (NULL);
-	while (!ended)
+	while (is_alive == 0)
 	{
 		pthread_mutex_lock(&philo->data->lock);
-		ended = philo->data->dead;
+		is_alive = philo->data->is_dead;
 		pthread_mutex_unlock(&philo->data->lock);
 		eat(philo);
 		event_log("is thinking", philo);
@@ -107,39 +86,28 @@ void	*routine(void *philo_pointer)
 	return (NULL);
 }
 
-/*
-! ---------------------------------------------------------------------------
-*							- SUPERVISOR -
-! ---------------------------------------------------------------------------
-
-? This function works as follows :
-* - Will simply handle the death of a philo and if he ate enough times
-* - Will end the simulation depending on those situations.
-
-*/
-
 void	*supervisor(void *philo_pointer)
 {
 	t_philo	*philo;
-	int		ended;
+	int		is_alive;
 
 	philo = (t_philo *) philo_pointer;
 	pthread_mutex_lock(&philo->data->lock);
-	ended = philo->data->dead;
+	is_alive = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->lock);
-	while (!ended)
+	while (is_alive == 0)
 	{
 		pthread_mutex_lock(&philo->data->lock);
-		ended = philo->data->dead;
+		is_alive = philo->data->is_dead;
 		pthread_mutex_unlock(&philo->data->lock);
 		pthread_mutex_lock(&philo->lock);
-		if (ft_get_time() >= philo->time_to_die && philo->eating == 0)
+		if (ft_get_time() >= philo->time_to_die && philo->is_eating == 0)
 			event_log("died", philo);
-		if (philo->eat_cont == philo->data->n_meals)
+		if (philo->eat_count == philo->data->n_eat)
 		{
 			pthread_mutex_lock(&philo->data->lock);
 			philo->data->finished++;
-			philo->eat_cont++;
+			philo->eat_count++;
 			pthread_mutex_unlock(&philo->data->lock);
 		}
 		pthread_mutex_unlock(&philo->lock);

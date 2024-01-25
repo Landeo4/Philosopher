@@ -6,14 +6,14 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2024/01/25 17:11:50 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/25 18:28:58 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	Philosopher
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -g3
+CFLAGS = -Wall -Wextra -Werror -Iincludes -g3 -fsanitize=address
 RM = rm -rf
 
 SRCS	=	main.c \
