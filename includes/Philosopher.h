@@ -6,106 +6,113 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/24 19:42:47 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:30:08 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
 
-# include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 # include <pthread.h>
+# include <stdlib.h>
 # include <stdint.h>
-# include <time.h>
-# include <sys/types.h>
-#include <sys/time.h>
-# include <stdint.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
-/*
-================================
-			Structure
-================================
-*/
+// ! ---------------------------------------------------------------------------
+// ?							STRUCTURES DECLARATION
+// ! ---------------------------------------------------------------------------
+
+struct	s_data;
 
 typedef struct s_philo
 {
+	struct s_data	*data;
+	pthread_t		t1;
 	int				id;
-	int				has_eaten;
-	int				nb_eat;
-	pthread_t		philo;
-	struct s_data	*data_struct;
+	int				eat_cont;
+	int				status;
+	int				eating;
+	uint64_t		time_to_die;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	struct s_philo	*next;
-}		t_philo;
+}	t_philo;
 
 typedef struct s_data
 {
-	pthread_mutex_t	*fork;
-	int				nb_philo;
+	t_philo			*philos;
+	int				n_philo;
+	int				n_meals;
+	int				dead;
+	int				finished;
+	u_int64_t		death_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
-	u_int64_t		die_time;
-	u_int64_t		think_time;
-	u_int64_t		real_time;
-	int				nb_eat;
-	int				dead;
-	u_int64_t		sav_die_time;
-	pthread_mutex_t	mutex;
-	t_philo			*ph_struct;
-}		t_data;
+	u_int64_t		start_time;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	lock;
+	pthread_mutex_t	write;
+	pthread_mutex_t	end;
+	pthread_t		*tid;
+}	t_data;
 
-/*
-================================
-			Philo
-================================
-*/
+// ! ---------------------------------------------------------------------------
+// *							-  UTILS -
+// ! ---------------------------------------------------------------------------
 
-int			main(int argc, char *argv[]);
-void		philo_eat(t_philo *ptr, t_data *data);
-void		*start_routine(void *data);
-int			is_philo_dead(t_data *data, int actual);
+long		ft_atol(const char *str);
+int			ft_strcmp(char *s1, char *s2);
+int			ft_int_overflow_checker(char *str);
+int			ft_integer_checker(char *str);
+int			ft_usleep(useconds_t time);
+int			pr_error(char *error);
+size_t		ft_strlen(const char *str);
 u_int64_t	ft_get_time(void);
 
-/*
-================================
-			Parsing
-================================
-*/
+// ! ---------------------------------------------------------------------------
+// *						- ARGUMENTS VERIFICATION -
+// ! ---------------------------------------------------------------------------
 
-int			parsing_manager(int argc, char *argv[]);
-int			verif_numbers(char *argv[]);
-int			verif_overflow(char *argv[]);
-int			ft_isdigit(int c);
-int			is_num_only(char *argv[]);
+int			verify_arguments(char **argv, int argc);
+int			prevent_overflow(char **argv, int argc);
 
-/*
-================================
-			Utils
-================================
-*/
+// ! ---------------------------------------------------------------------------
+// *							- INITIALIZERS -
+// ! ---------------------------------------------------------------------------
 
-int			ft_strlen(char *str);
-void		philo_eat_show(u_int64_t time, int id);
-void		philo_fork_show(u_int64_t time, int id);
-void		philo_sleep_show(u_int64_t time, int id);
-void		philo_think_show(u_int64_t time, int id);
-void		philo_died_show(u_int64_t time, int id);
-t_data		*init_data_struct(char *argv[], t_data *ptr);
-t_philo		*init_philo_struct(t_data *data);
-int			ft_atoi(const char *nptr);
-void		ft_free_philo(t_philo *ptr);
-void		*ft_calloc(size_t nmemb, size_t size);
-t_philo		*ft_createcell_philo(int num);
-void		ft_bzero(void *s, size_t n);
-void		*ft_memset(void *s, int c, size_t n);
-t_philo		*ft_add_at(t_philo *L, int nb, int pos);
-int			fill_struct(t_data *dat, t_philo *ptr1);
-t_data		*create_fork(t_data *data, char *argv[]);
-int			init_all_struct(t_data *ptr, t_philo *philo, char *argv[]);
-void 		free_struct(t_philo *ptr, t_data *data);
-long		ft_atol(const char *nptr);
+int			init_master(t_data *ptr, char **argv);
+int			init_pointers(t_data *ptr);
+void		init_struct(t_data *ptr, char **argv);
+void		init_philos(t_data *ptr);
+void		init_forks(t_data *ptr);
+int			init_threads(t_data *ptr);
+
+// ! ---------------------------------------------------------------------------
+// *						- PHILOSOPHERS SIMULATION -
+// ! ---------------------------------------------------------------------------
+
+int			one_philo_solution(t_data *ptr);
+void		*one_philo_solver(void *philo_ptr);
+void		*routine(void *philo_pointer);
+void		*monitor(void *data_ptr);
+void		*supervisor(void *philo_pointer);
+void		event_log(char *str, t_philo *philo);
+void		eat(t_philo *philo);
+void		take_forks_r_l(t_philo *philo);
+void		take_forks_l_r(t_philo *philo);
+void		drop_forks_l_r(t_philo *philo);
+void		drop_forks_r_l(t_philo *philo);
+
+// ! ---------------------------------------------------------------------------
+// *					- FREE FUNCTIONS && ERROR HANDLING -
+// ! ---------------------------------------------------------------------------
+
+int			error_handler(char *str, t_data *ptr);
+void		end_prog_and_free(t_data *ptr);
+void		free_data(t_data *ptr);
 
 #endif

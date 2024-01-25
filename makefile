@@ -6,41 +6,43 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2024/01/23 18:41:40 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/25 17:11:50 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	Philosopher
 
-OBJS_PATH	= objs/
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -Iincludes -g3
+RM = rm -rf
 
-SRCS	=	srcs/main.c\
-			srcs/Philo/actions_philo.c\
-			srcs/Philo/routine.c\
-			srcs/Parsing/parsing_manager.c\
-			srcs/Utils/verif_numbers.c\
-			srcs/Utils/ft_strlen.c\
-			srcs/Utils/is_num.c\
-			srcs/list/init_struct.c\
-			srcs/Utils/ft_atoi.c\
-			srcs/Utils/ft_atol.c\
-			srcs/Utils/ft_bzero.c\
-			srcs/Utils/ft_meme_set.c\
-			srcs/Utils/ft_calloc.c\
-			srcs/list/ft_create_cell.c\
-			srcs/list/ft_free_list.c\
-			srcs/list/ft_add_at.c\
+SRCS	=	main.c \
+			utils/ft_atol.c \
+			utils/ft_int_overflow_checker.c \
+			utils/ft_strlen.c \
+			utils/ft_error_writer.c \
+			utils/ft_get_time.c \
+			utils/ft_usleep.c \
+			utils/ft_strcmp.c \
+			parsing/verify_arguments.c \
+			src/initializer.c \
+			src/end_program.c \
+			src/actions.c \
+			src/simulation.c \
+			src/forks.c \
 
-OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
+OBJS= $(SRCS:.c=.o)
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Werror -Wextra -g3 -Iincludes -pthread
+CFLAGS	=	-Wall -Werror -Wextra -g3 -g
+.c.o:
+		${CC} ${CFLAGS} -Iincludes -c $< -o ${<:.c=.o}
 
 all : ${NAME}
 
 ${NAME}:	${OBJS}
-			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+			${CC} ${CFLAGS} -o ${NAME} ${OBJS}
 
 clean:
 			rm -rf ${OBJS}
@@ -51,7 +53,3 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:	all clean fclean re
-
-${OBJS_PATH}%.o: %.c
-		@mkdir -p $(@D)
-		${CC} ${CFLAGS} -c $< -o $@
