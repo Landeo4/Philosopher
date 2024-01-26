@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2024/01/25 20:39:59 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/26 11:12:02 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,19 @@ RM = rm -rf
 
 SRCS	=	main.c \
 			utils/ft_atol.c \
-			utils/ft_int_overflow_checker.c \
+			utils/int_overflow_checker.c \
 			utils/ft_strlen.c \
-			utils/ft_error_writer.c \
+			utils/error_writer.c \
 			utils/ft_get_time.c \
 			utils/ft_usleep.c \
 			utils/ft_strcmp.c \
 			parsing/verify_arguments.c \
-			src/initializer.c \
-			src/initializer2.c \
+			src/struct_init.c \
+			src/struct_init2.c \
 			src/end_program.c \
-			src/actions.c \
+			src/Philo_actions.c \
 			src/simulation.c \
-			src/forks.c \
+			src/forks_actions.c \
 
 OBJS= $(SRCS:.c=.o)
 

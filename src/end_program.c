@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:45:36 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 19:16:05 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:25:12 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	free_struct(t_data *ptr)
 
 void	free_data(t_data *ptr)
 {
-	if (ptr->thre_id)
-		free(ptr->thre_id);
+	if (ptr->t_id)
+		free(ptr->t_id);
 	if (ptr->forks)
 		free(ptr->forks);
 	if (ptr->philos)

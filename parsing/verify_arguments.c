@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:55:51 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 17:46:56 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:29:17 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	overflow_check(char **argv, int argc)
 	i = 1;
 	while (i < argc)
 	{
-		if (!ft_int_overflow_checker(argv[i]))
+		if (!int_overflow_checker(argv[i]))
 			return (0);
 		else
 			i++;

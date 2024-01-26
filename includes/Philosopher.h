@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:19:31 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 19:14:39 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:53:18 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 	pthread_mutex_t	end;
-	pthread_t		*thre_id;
+	pthread_t		*t_id;
 }	t_data;
 
 // ---------------------------------------------------------------------------
@@ -66,8 +66,8 @@ typedef struct s_data
 
 long		ft_atol(const char *str);
 int			ft_strcmp(char *s1, char *s2);
-int			ft_int_overflow_checker(char *str);
-int			ft_integer_checker(char *str);
+int			int_overflow_checker(char *str);
+int			integer_checker(char *str);
 int			ft_usleep(useconds_t time);
 int			pr_error(char *error);
 size_t		ft_strlen(const char *str);
@@ -84,7 +84,7 @@ int			overflow_check(char **argv, int argc);
 // 							- INITIALIZERS -
 // ---------------------------------------------------------------------------
 
-int			init_master(t_data *ptr, char **argv);
+int			init_all_struct(t_data *ptr, char **argv);
 int			init_pointers(t_data *ptr);
 void		init_struct(t_data *ptr, char **argv);
 void		init_philos(t_data *ptr);
@@ -99,7 +99,7 @@ int			one_philo_solution(t_data *ptr);
 void		*one_philo_solver(void *philo_ptr);
 void		*routine(void *philo_pointer);
 void		*monitor(void *data_ptr);
-void		*supervisor(void *philo_pointer);
+void		*simu_helper(void *philo_pointer);
 void		event_log(char *str, t_philo *philo);
 void		eat(t_philo *philo);
 void		take_forks_r_l(t_philo *philo);

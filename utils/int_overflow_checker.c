@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializer2.c                                     :+:      :+:    :+:   */
+/*   int_overflow_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 18:52:43 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 18:56:56 by tpotilli         ###   ########.fr       */
+/*   Created: 2024/01/26 09:29:51 by tpotilli          #+#    #+#             */
+/*   Updated: 2024/01/26 09:30:06 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	thread_collector(t_data *ptr)
+int	int_overflow_checker(char *str)
 {
-	int	i;
+	if (ft_strlen(str) > 11)
+		return (pr_error("Integer overflow/underflow detected."));
+	else if (integer_checker(str) != 1)
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	while (++i < ptr->n_philo)
-	{
-		if (pthread_join(ptr->thre_id[i], NULL))
-			return (error_and_free("Thread join error.", ptr));
-		i++;
-	}
-	return (0);
+int	integer_checker(char *str)
+{
+	long	n;
+
+	n = ft_atol(str);
+	if (n > INT_MAX)
+		return (pr_error("Integer overflow detected."));
+	else if (n < INT_MIN)
+		return (pr_error("Integer underflow detected."));
+	return (1);
 }

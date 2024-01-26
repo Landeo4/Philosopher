@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializer.c                                      :+:      :+:    :+:   */
+/*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:46:46 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 19:15:06 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:39:10 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosopher.h"
 
-int	init_threads(t_data *ptr)
+int	init_all_struct(t_data *ptr, char **argv)
 {
-	int			i;
-	pthread_t	t0;
-
-	i = 0;
-	ptr->beginning = ft_get_time();
-	if (ptr->n_eat > 0)
-	{
-		if (pthread_create(&t0, NULL, &monitor, &ptr->philos[0]))
-			return (error_and_free("Error when creating a thread", ptr));
-		if (pthread_detach(t0))
-			return (error_and_free("Detach error.", ptr));
-	}
-	while (i < ptr->n_philo)
-	{
-		if (pthread_create(&ptr->thre_id[i], NULL, &routine, &ptr->philos[i]))
-			return (error_and_free("Error when creating a thread", ptr));
-		ft_usleep(1);
-		i++;
-	}
-	return (0);
+	init_struct(ptr, argv);
+	if (init_pointers(ptr))
+		return (0);
+	init_forks(ptr);
+	init_philos(ptr);
+	if (ptr->n_philo == 1)
+		return (one_philo_solution(ptr));
+	if (init_threads(ptr))
+		return (0);
+	return (1);
 }
 
 void	init_philos(t_data *ptr)
@@ -73,8 +63,8 @@ void	init_struct(t_data *ptr, char **argv)
 
 int	init_pointers(t_data *ptr)
 {
-	ptr->thre_id = malloc(sizeof(pthread_t) * ptr->n_philo);
-	if (!ptr->thre_id)
+	ptr->t_id = malloc(sizeof(pthread_t) * ptr->n_philo);
+	if (!ptr->t_id)
 		return (error_and_free("Allocation error.", ptr));
 	ptr->forks = malloc(sizeof(pthread_mutex_t) * ptr->n_philo);
 	if (!ptr->forks)
