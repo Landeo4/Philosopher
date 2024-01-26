@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   Philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:56:08 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/25 21:11:24 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:48:15 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ void	eat(t_philo *philo)
 	else
 		take_forks_l_r(philo);
 	pthread_mutex_lock(&philo->lock);
-	philo->is_eating = 1;
+	philo->is_is_eating = 1;
 	philo->time_to_die = ft_get_time() + philo->data->death_time;
 	event_log("is eating", philo);
 	philo->eat_count++;
+	printf("--->%li\n", philo->data->eat_time);
 	ft_usleep(philo->data->eat_time);
 	philo->is_eating = 0;
 	pthread_mutex_unlock(&philo->lock);

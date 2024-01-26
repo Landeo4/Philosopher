@@ -6,7 +6,7 @@
 #    By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 12:13:36 by tpotilli          #+#    #+#              #
-#    Updated: 2024/01/26 11:12:02 by tpotilli         ###   ########.fr        #
+#    Updated: 2024/01/26 13:55:44 by tpotilli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,11 @@ SRCS	=	main.c \
 			utils/ft_usleep.c \
 			utils/ft_strcmp.c \
 			parsing/verify_arguments.c \
-			src/struct_init.c \
-			src/struct_init2.c \
+			src/actions.c \
 			src/end_program.c \
-			src/Philo_actions.c \
+			src/forks.c \
+			src/initializer_struct.c \
 			src/simulation.c \
-			src/forks_actions.c \
 
 OBJS= $(SRCS:.c=.o)
 

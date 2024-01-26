@@ -6,7 +6,7 @@
 /*   By: tpotilli <tpotilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 18:52:43 by tpotilli          #+#    #+#             */
-/*   Updated: 2024/01/26 09:39:14 by tpotilli         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:58:00 by tpotilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	thread_collector(t_data *ptr)
 	int	i;
 
 	i = 0;
-	while (++i < ptr->n_philo)
+	while (i < ptr->n_philo)
 	{
 		if (pthread_join(ptr->t_id[i], NULL))
 			return (error_and_free("Thread join error.", ptr));
